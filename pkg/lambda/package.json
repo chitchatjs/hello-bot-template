@@ -6,14 +6,27 @@
     "scripts": {
         "build": "npm run clean && tsc",
         "clean": "rm -rf ./dist",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "npm run build && npx mocha ./dist/test"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": [
+        "chitchatjs",
+        "chitchat",
+        "cjs",
+        "alexa framework",
+        "dialog mangement framework"
+    ],
+    "author": "Kevindra Singh (kevindra.singh@gmail.com)",
     "license": "ISC",
     "dependencies": {
-        "@chitchatjs/alexa": "0.0.5",
-        "@chitchatjs/core": "0.0.7",
+        "@chitchatjs/alexa": "file:../../chitchatjs/packages/alexa/chitchatjs-alexa-0.0.7.tgz",
+        "@chitchatjs/core": "file:../../chitchatjs/packages/core/chitchatjs-core-0.0.8.tgz",
         "ask-sdk-core": "^2.9.0"
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.13",
+        "@types/mocha": "^8.0.3",
+        "ask-sdk-model": "^1.33.1",
+        "chai": "^4.2.0",
+        "mocha": "^8.1.3"
     }
 }

@@ -1,4 +1,4 @@
 {
     "outDir": "./pkg",
-    "target": "AlexaSkill"
+    "target": "Alexa"
 }

@@ -1,24 +1,25 @@
 {
+  "version": "1.0",
   "interactionModel": {
     "languageModel": {
-      "invocationName": "dummy skill",
+      "invocationName": "sample sample",
       "intents": [
         {
-          "name": "OjewLIntent",
-          "slots": [],
-          "samples": [
-            "Hello how are you"
-          ]
-        },
-        {
           "name": "AMAZON.StopIntent",
-          "slots": [],
           "samples": []
         },
         {
           "name": "AMAZON.FallbackIntent",
-          "slots": [],
           "samples": []
+        },
+        {
+          "name": "HellohowarIntent",
+          "samples": [
+            "Hello how are you",
+            "hello",
+            "how are you alexa"
+          ],
+          "slots": []
         }
       ],
       "types": [],
