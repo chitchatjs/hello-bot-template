@@ -18,14 +18,11 @@
     "author": "Kevindra Singh (kevindra.singh@gmail.com)",
     "license": "ISC",
     "dependencies": {
-        "@chitchatjs/alexa": "0.0.11",
-        "@chitchatjs/core": "0.0.11",
-        "ask-sdk-core": "^2.9.0"
+        "@chitchatjs/alexa": "0.0.12"
     },
     "devDependencies": {
         "@types/chai": "^4.2.13",
         "@types/mocha": "^8.0.3",
-        "ask-sdk-model": "^1.33.1",
         "chai": "^4.2.0",
         "mocha": "^8.1.3"
     }

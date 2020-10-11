@@ -1,15 +1,12 @@
-import { alexa as ax, AlexaDialogManager, AlexaSkill, RuleBasedDialogEngine } from "@chitchatjs/alexa";
-import {} from "ask-sdk-core";
-
-import { core, DialogContext, conv, Event, Locale, state } from "@chitchatjs/core";
+import { alexa as ax, AlexaDialogContext, AlexaEvent } from "@chitchatjs/alexa";
 
 // -------------------------------------------------------------------- //
 // A Greeting dialog
 // -------------------------------------------------------------------- //
 
-let stopIntentBlock = core
+let stopIntentBlock = ax
     .when()
-    .true((ctx: DialogContext, event: Event) => {
+    .true((ctx: AlexaDialogContext, event: AlexaEvent) => {
         return (
             event.currentRequest.request.type == "IntentRequest" &&
             (event.currentRequest.request.intent.name == "AMAZON.StopIntent" ||
@@ -19,9 +16,9 @@ let stopIntentBlock = core
     .then(ax.say("Good bye.").build())
     .build();
 
-let fallbackBlock = core
+let fallbackBlock = ax
     .when()
-    .true((ctx: DialogContext, event: Event) => {
+    .true((ctx: AlexaDialogContext, event: AlexaEvent) => {
         return (
             event.currentRequest.request.type == "IntentRequest" &&
             event.currentRequest.request.intent.name == "AMAZON.FallbackIntent"
@@ -30,22 +27,17 @@ let fallbackBlock = core
     .then(ax.ask().say("Sorry I didn't understand. Please try again.").reprompt("try again").build())
     .build();
 
-let init = state("INIT")
+let init = ax
+    .state("INIT")
     .block(
-        core
+        ax
             .compound()
+            .add(ax.setStateVar("name", "Kevindra"))
+            .add(ax.ask().say("welcome").build())
             .add(
-                core
-                    .setStateVar()
-                    .set((ctx: DialogContext, event: Event) => {
-                        return { name: "Kevindra" };
-                    })
-                    .build()
-            )
-            .add(
-                core
+                ax
                     .when()
-                    .true((ctx: DialogContext, event: Event) => {
+                    .true((ctx: AlexaDialogContext, event: AlexaEvent) => {
                         return ctx.platformState.globalState.name === "Kevindra";
                     })
                     .then(
@@ -58,18 +50,19 @@ let init = state("INIT")
                     .otherwise(ax.say("I don't know you {name}, bye").build())
                     .build()
             )
-            .add(core.goto().stateName("state2").build())
+            .add(ax.goto("state2"))
             .build()
     )
     .build();
 
-let state2 = state("state2")
+let state2 = ax
+    .state("state2")
     .block(
-        core
+        ax
             .compound()
             .add(
                 ax
-                    .when(["Hello how are you", "hello", "how are you alexa"])
+                    .whenUserSays(["Hello how are you", "hello", "how are you alexa"])
                     .then(ax.say("I'm good, thank you!").build())
                     .build()
             )
@@ -79,22 +72,17 @@ let state2 = state("state2")
     )
     .build();
 
-let convr = conv().addState(init).addState(state2).build();
-
-/**
- * Create the skill using conversation
- */
-let skill = new AlexaSkill(convr);
+let definition = ax.definition().addState(init).addState(state2).build();
 
 /**
  * Using AlexaDialogManager with underlying DefaultDialogEngine.
  */
-let dm = new AlexaDialogManager(skill, new RuleBasedDialogEngine());
+let dm = ax.dialogManager(definition);
 
 /**
  * Default export is full skill
  */
-export default skill;
+export default dm.alexaSkill;
 
 /**
  * handler export is for AWS lambda
