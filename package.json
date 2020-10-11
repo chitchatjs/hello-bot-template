@@ -18,8 +18,8 @@
     "author": "Kevindra Singh (kevindra.singh@gmail.com)",
     "license": "ISC",
     "dependencies": {
-        "@chitchatjs/alexa": "file:../../chitchatjs/packages/alexa/chitchatjs-alexa-0.0.7.tgz",
-        "@chitchatjs/core": "file:../../chitchatjs/packages/core/chitchatjs-core-0.0.8.tgz",
+        "@chitchatjs/alexa": "0.0.11",
+        "@chitchatjs/core": "0.0.11",
         "ask-sdk-core": "^2.9.0"
     },
     "devDependencies": {
