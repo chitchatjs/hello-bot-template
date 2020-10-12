@@ -1,4 +1,4 @@
-import { alexa as ax, AlexaDialogContext, AlexaEvent } from "@chitchatjs/alexa";
+import { alexa as ax, AlexaDialogContext, AlexaEvent, Locale } from "@chitchatjs/alexa";
 import * as builtins from "./builtins";
 import { IntentRequest } from "ask-sdk-model";
 
@@ -8,7 +8,14 @@ import { IntentRequest } from "ask-sdk-model";
 
 let init = ax
     .state("INIT")
-    .block(ax.compound().add(ax.ask("welcome, tell me your name?").build()).add(ax.goto("Name")).build())
+    .block(
+        ax
+            .compound()
+            .add(ax.info(Locale.en_US).name("CJS Hello Bot").invocationName("chitchat hello bot").build())
+            .add(ax.ask("welcome, tell me your name?").build())
+            .add(ax.goto("Name"))
+            .build()
+    )
     .build();
 
 let state2 = ax
