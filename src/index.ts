@@ -11,7 +11,7 @@ let init = ax
     .block(
         ax
             .compound()
-            .add(ax.info(Locale.en_US).name("CJS Hello Bot").invocationName("chitchat hello bot").build())
+            .add(ax.info().name("CJS Hello Bot").invocationName("chitchat hello bot").build())
             .add(ax.ask("welcome, tell me your name?").build())
             .add(ax.goto("Name"))
             .build()
@@ -47,6 +47,6 @@ let state2 = ax
     )
     .build();
 
-let definition = ax.definition().addState(init).addState(state2).build();
+let definition = ax.skill().addState(init).addState(state2).build();
 
 export = ax.dialogManager(definition).exports();
