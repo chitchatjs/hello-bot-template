@@ -1,10 +1,6 @@
 import { alexa as ax, AlexaDialogContext, AlexaEvent, Locale } from "@chitchatjs/alexa";
-import * as builtins from "./builtins";
+import builtins from "./builtins";
 import { IntentRequest } from "ask-sdk-model";
-
-// -------------------------------------------------------------------- //
-// A Greeting dialog
-// -------------------------------------------------------------------- //
 
 let init = ax
   .start()
@@ -13,13 +9,13 @@ let init = ax
       .compound()
       .add(ax.info().name("CJS Hello Bot").invocationName("chitchat hello bot").build())
       .add(ax.ask("welcome, tell me your name?").build())
-      .add(ax.goto("Name"))
+      .add(ax.goto("Greet"))
       .build()
   )
   .build();
 
-let state2 = ax
-  .state("Name")
+let greet = ax
+  .state("Greet")
   .block(
     ax
       .compound()
@@ -41,12 +37,11 @@ let state2 = ax
           )
           .build()
       )
-      .add(builtins.builtins[0])
-      .add(builtins.builtins[1])
+      .add(builtins)
       .build()
   )
   .build();
 
-let definition = ax.skill().addState(init).addState(state2).build();
+let definition = ax.skill().addState(init).addState(greet).build();
 
 export = ax.dialogManager(definition).exports();

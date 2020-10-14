@@ -1,2 +1,10 @@
 # hello-bot-template
-A sample template using CJS, integrated in the CJS CLI as well!
+
+A very simple hello world skill using [chitchat.js](https://chitchat.js.org).
+
+```
+U: open chitchat hello bot
+A: welcome, tell me your name
+U: kevindra
+A: it's great to talk to you, kevindra, thank you!
+```
