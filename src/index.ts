@@ -1,6 +1,5 @@
-import { alexa as ax, AlexaDialogContext, AlexaEvent, Locale } from "@chitchatjs/alexa";
+import { alexa as ax } from "@chitchatjs/alexa";
 import builtins from "./builtins";
-import { IntentRequest } from "ask-sdk-model";
 
 let init = ax
   .start()
@@ -23,18 +22,7 @@ let greet = ax
         ax
           .whenUserSays(["my name is {name}", "{name}", "hello my name is {name}"])
           .withSlotType("name", "AMAZON.FirstName")
-          .then(
-            ax
-              .compound()
-              .add(
-                ax.setStateVar((c: AlexaDialogContext, e: AlexaEvent) => {
-                  let slots = (<IntentRequest>e.currentRequest.request).intent.slots || {};
-                  return { name: slots["name"].value };
-                })
-              )
-              .add(ax.say("It's great to talk to you, {name}, thank you!"))
-              .build()
-          )
+          .then(ax.say("It's great to talk to you, {name}, thank you!"))
           .build()
       )
       .add(builtins)
@@ -42,6 +30,6 @@ let greet = ax
   )
   .build();
 
-let definition = ax.skill().addState(init).addState(greet).build();
+let skill = ax.skill().addState(init).addState(greet).build();
 
-export = ax.dialogManager(definition).exports();
+export = ax.dialogManager(skill).exports();
