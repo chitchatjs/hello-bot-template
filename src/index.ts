@@ -6,7 +6,7 @@ let init = ax
   .block(
     ax
       .compound()
-      .add(ax.info().name("CJS Hello Bot").invocationName("chitchat hello bot").build())
+      .add(ax.info().name("CJS Hello Bot").invocationName("hello bot").build())
       .add(ax.ask("welcome, tell me your name?").build())
       .add(ax.goto("Greet"))
       .build()
