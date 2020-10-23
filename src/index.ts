@@ -1,5 +1,5 @@
 import { alexa as ax } from "@chitchatjs/alexa";
-import builtins from "./builtins";
+import { axkit } from "@chitchatjs/plugin-ax-kit";
 
 let init = ax
   .start()
@@ -25,7 +25,7 @@ let greet = ax
           .then(ax.say("It's great to talk to you, {name}, thank you!"))
           .build()
       )
-      .add(builtins)
+      .add(axkit.builtin.all("You can tell me your name."))
       .build()
   )
   .build();
