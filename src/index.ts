@@ -1,5 +1,5 @@
-import { alexa as ax } from "@chitchatjs/alexa";
-import { axkit } from "@chitchatjs/plugin-ax-kit";
+import { ax } from "@chitchatjs/alexa";
+import { common } from "@chitchatjs/plugin-ax-common";
 
 let init = ax
   .start()
@@ -7,17 +7,7 @@ let init = ax
     ax
       .compound()
       .add(ax.info().name("CJS Hello Bot").invocationName("hello bot").build())
-      .add(ax.ask("welcome, tell me your name?").build())
-      .add(ax.goto("Greet"))
-      .build()
-  )
-  .build();
-
-let greet = ax
-  .state("Greet")
-  .block(
-    ax
-      .compound()
+      .add(ax.whenLaunch().then(ax.ask("welcome, tell me your name?").build()).build())
       .add(
         ax
           .whenUserSays(["my name is {name}", "{name}", "hello my name is {name}"])
@@ -25,11 +15,11 @@ let greet = ax
           .then(ax.say("It's great to talk to you, {name}, thank you!"))
           .build()
       )
-      .add(axkit.builtin.all("You can tell me your name."))
+      .add(common.defaultHandlers())
       .build()
   )
   .build();
 
-let skill = ax.skill().addState(init).addState(greet).build();
+let skill = ax.skill().addState(init).build();
 
 export = ax.dialogManager(skill).exports();
